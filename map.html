@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Eksplorasi Bedulu | Custom Icons</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: white;
+            overflow: hidden;
+        }
+
+        .map-wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 380px;
+            background: #0a0f1d;
+            border-right: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 25px;
+        }
+
+        /* Destinasi Cards */
+        .location-list {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 5px;
+        }
+
+        .location-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .location-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .dest-item {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .dest-item:hover,
+        .dest-item.active {
+            border-color: var(--primary);
+            background: rgba(251, 191, 36, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .dest-item h4 {
+            margin: 0;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dest-item p {
+            margin: 5px 0 0;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        #map {
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        /* Legend / Info */
+        .legend {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.8;
+        }
+
+        .legend-img {
+            width: 18px;
+            height: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .map-wrapper {
+                flex-direction: column-reverse;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 45%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="map-wrapper">
+        <div class="sidebar">
+            <a href="index.html" class="back-home">← Kembali ke Beranda</a>
+            <h2>Destinasi Bedulu</h2>
+            <p class="subtitle">Pilih destinasi untuk melihat fasilitas di sekitarnya.</p>
+
+            <div class="location-list" id="dest-list">
+            </div>
+
+            <div class="legend">
+                <div class="legend-item"><img src="https://cdn-icons-png.flaticon.com/512/3358/3358485.png"
+                        class="legend-img"> ATM</div>
+                <div class="legend-item"><img src="https://cdn-icons-png.flaticon.com/512/4320/4320350.png"
+                        class="legend-img"> RS/Klinik</div>
+                <div class="legend-item"><img src="https://cdn-icons-png.flaticon.com/512/4721/4721028.png"
+                        class="legend-img"> Café/Makan</div>
+                <div class="legend-item"><img src="https://cdn-icons-png.flaticon.com/512/890/890964.png"
+                        class="legend-img"> SPBU</div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- <script>
+        const map = L.map('map').setView([-8.525, 115.295], 14);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Update Icon Library dengan icon Flaticon yang lebih spesifik
+        // Update Icon Library dengan link direct PNG dari Flaticon yang lo pilih
+        const iconLib = {
+            dest: "https://cdn-icons-png.flaticon.com/512/1483/1483336.png", // Icon Destination
+            atm: "https://cdn-icons-png.flaticon.com/512/3358/3358485.png",  // Icon ATM
+            rs: "https://cdn-icons-png.flaticon.com/512/4320/4320350.png",   // Icon Hospital
+            cafe: "https://cdn-icons-png.flaticon.com/512/4721/4721028.png", // Icon Cafe
+            spbu: "https://cdn-icons-png.flaticon.com/512/890/890964.png"    // Icon Gas Pump
+        };
+
+        const createIcon = (url, size = 32) => L.icon({
+            iconUrl: url,
+            iconSize: [size, size],
+            iconAnchor: [size / 2, size],
+            popupAnchor: [0, -size]
+        });
+
+        // Data lo yang terbaru
+        const dataWisata = [
+            {
+                name: "Goa Gajah",
+                coords: [-8.5230, 115.2861],
+                desc: "Situs spiritual abad ke-9 dengan relief raksasa Bhoma.",
+                facilities: [
+                    { name: "Layana Warung", type: "cafe", pos: [-8.522, 115.288] },
+                    { name: "ATM Center", type: "atm", pos: [-8.524, 115.285] },
+                    { name: "RSUD Sanjiwani", type: "rs", pos: [-8.537, 115.3] },
+                    { name: "Rumah Sakit Ari Canti", type: "rs", pos: [-8.552, 115.27] }
+                ]
+            },
+            {
+                name: "Yeh Pulu",
+                coords: [-8.5295, 115.2933],
+                desc: "Relief kuno 25 meter yang menceritakan kehidupan agraris Bali.",
+                facilities: [
+                    { name: "Yeh Pulu Café", type: "cafe", pos: [-8.529, 115.294] },
+                    { name: "ATM BNI SPBU Pengosekan", type: "atm", pos: [-8.524, 115.26] },
+                    { name: "RSUD Sanjiwani Gianyar", type: "rs", pos: [-8.537, 115.32] },
+                    { name: "Rumah Sakit Ari Canti", type: "rs", pos: [-8.552, 115.27] },
+                    { name: "SPBU Jalan Raya Goa Gajah", type: "spbu", pos: [-8.552, 115.27] }
+                ]
+            },
+            {
+                name: "Candi Tebing",
+                coords: [-8.527, 115.305],
+                desc: "Situs pertapaan kuno yang dipahat langsung di dinding tebing sungai.",
+                facilities: [
+                    { name: "Hanzo Coffee Bedulu", type: "cafe", pos: [-8.534, 115.307] },
+                    { name: "SPBU Terdekat", type: "spbu", pos: [-8.534, 115.300] },
+                    { name: "ATM", type: "atm", pos: [-8.535, 115.308] },
+                    { name: "RSUD Sanjiwani Gianyar", type: "rs", pos: [-8.537, 115.300] }
+                ]
+            },
+            {
+                name: "Pura Samuan Tiga",
+                coords: [-8.5237, 115.295],
+                desc: "Tempat bersejarah penyatuan sekte Hindu di Bali.",
+                facilities: [
+                    { name: "Dagoja Coffee", type: "cafe", pos: [-8.522, 115.288] },
+                    { name: "RSUD Sanjiwani", type: "rs", pos: [-8.537, 115.3] },
+                    { name: "ATM", type: "atm", pos: [-8.535, 115.308] },
+                    { name: "SPBU Jalan Raya Goa Gajah", type: "spbu", pos: [-8.523, 115.27] },
+                ]
+            }
+        ];
+
+        const facilityLayer = L.layerGroup().addTo(map);
+        const destList = document.getElementById('dest-list');
+
+        function showFacilities(dest) {
+            facilityLayer.clearLayers(); // Bersihin marker fasilitas lama
+
+            dest.facilities.forEach(f => {
+                L.marker(f.pos, {
+                    icon: createIcon(iconLib[f.type] || iconLib.dest, 28)
+                })
+                    .addTo(facilityLayer)
+                    .bindPopup(`<div style="color:black"><b>${f.name}</b><br>Fasilitas: ${f.type.toUpperCase()}</div>`);
+            });
+
+            map.flyTo(dest.coords, 16, { animate: true, duration: 1.5 });
+        }
+
+        dataWisata.forEach((dest) => {
+            // Marker Utama Destinasi (Selalu Muncul)
+            const mainMarker = L.marker(dest.coords, { icon: createIcon(iconLib.dest, 40) })
+                .addTo(map)
+                .bindPopup(`<b style="color:black">${dest.name}</b>`);
+
+            // Sidebar Item
+            const item = document.createElement('div');
+            item.className = 'dest-item';
+            item.innerHTML = `
+            <h4>📍 ${dest.name}</h4>
+            <p>${dest.desc}</p>
+        `;
+
+            item.onclick = () => {
+                document.querySelectorAll('.dest-item').forEach(d => d.classList.remove('active'));
+                item.classList.add('active');
+
+                showFacilities(dest);
+                mainMarker.openPopup();
+            };
+
+            destList.appendChild(item);
+        });
+    </script> -->
+    <script>
+        const map = L.map('map').setView([-8.525, 115.295], 14);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        const iconLib = {
+            dest: "https://cdn-icons-png.flaticon.com/512/1483/1483336.png",
+            atm: "https://cdn-icons-png.flaticon.com/512/3358/3358485.png",
+            rs: "https://cdn-icons-png.flaticon.com/512/4320/4320350.png",
+            cafe: "https://cdn-icons-png.flaticon.com/512/4721/4721028.png",
+            spbu: "https://cdn-icons-png.flaticon.com/512/890/890964.png"
+        };
+
+        const createIcon = (url, size = 32) => L.icon({
+            iconUrl: url,
+            iconSize: [size, size],
+            iconAnchor: [size / 2, size],
+            popupAnchor: [0, -size]
+        });
+
+        const dataWisata = [
+            {
+                name: "Goa Gajah",
+                coords: [-8.5230, 115.2861],
+                desc: "Situs spiritual abad ke-9 dengan relief raksasa Bhoma.",
+                facilities: [
+                    { name: "Layana Warung", type: "cafe", pos: [-8.522, 115.288] },
+                    { name: "ATM Center", type: "atm", pos: [-8.524, 115.285] },
+                    { name: "RSUD Sanjiwani", type: "rs", pos: [-8.537, 115.3] },
+                    { name: "Rumah Sakit Ari Canti", type: "rs", pos: [-8.552, 115.27] }
+                ]
+            },
+            {
+                name: "Yeh Pulu",
+                coords: [-8.5295, 115.2933],
+                desc: "Relief kuno 25 meter yang menceritakan kehidupan agraris Bali.",
+                facilities: [
+                    { name: "Yeh Pulu Café", type: "cafe", pos: [-8.529, 115.294] },
+                    { name: "ATM BNI SPBU Pengosekan", type: "atm", pos: [-8.524, 115.26] },
+                    { name: "RSUD Sanjiwani Gianyar", type: "rs", pos: [-8.537, 115.32] },
+                    { name: "Rumah Sakit Ari Canti", type: "rs", pos: [-8.552, 115.27] },
+                    { name: "SPBU Jalan Raya Goa Gajah", type: "spbu", pos: [-8.552, 115.27] }
+                ]
+            },
+            {
+                name: "Candi Tebing",
+                coords: [-8.527, 115.305],
+                desc: "Situs pertapaan kuno yang dipahat langsung di dinding tebing sungai.",
+                facilities: [
+                    { name: "Hanzo Coffee Bedulu", type: "cafe", pos: [-8.534, 115.307] },
+                    { name: "SPBU Terdekat", type: "spbu", pos: [-8.534, 115.300] },
+                    { name: "ATM", type: "atm", pos: [-8.535, 115.308] },
+                    { name: "RSUD Sanjiwani Gianyar", type: "rs", pos: [-8.537, 115.300] }
+                ]
+            },
+            {
+                name: "Pura Samuan Tiga",
+                coords: [-8.5237, 115.295],
+                desc: "Tempat bersejarah penyatuan sekte Hindu di Bali.",
+                facilities: [
+                    { name: "Dagoja Coffee", type: "cafe", pos: [-8.522, 115.288] },
+                    { name: "RSUD Sanjiwani", type: "rs", pos: [-8.537, 115.3] },
+                    { name: "ATM", type: "atm", pos: [-8.535, 115.308] },
+                    { name: "SPBU Jalan Raya Goa Gajah", type: "spbu", pos: [-8.523, 115.27] },
+                ]
+            }
+        ];
+
+        const destList = document.getElementById('dest-list');
+
+        // LOOP PERTAMA: Render SEMUA fasilitas dan Destinasi sekaligus pas start
+        dataWisata.forEach((dest) => {
+            // 1. Render Marker Utama Destinasi
+            const mainMarker = L.marker(dest.coords, { icon: createIcon(iconLib.dest, 40) })
+                .addTo(map)
+                .bindPopup(`<b style="color:black">${dest.name}</b>`);
+
+            // 2. Render SEMUA Fasilitas milik destinasi ini
+            dest.facilities.forEach(f => {
+                L.marker(f.pos, {
+                    icon: createIcon(iconLib[f.type] || iconLib.dest, 28)
+                })
+                    .addTo(map) // Langsung masukin ke map utama
+                    .bindPopup(`<div style="color:black"><b>${f.name}</b><br>Fasilitas: ${f.type.toUpperCase()}</div>`);
+            });
+
+            // 3. Render Sidebar Item
+            const item = document.createElement('div');
+            item.className = 'dest-item';
+            item.innerHTML = `
+            <h4>📍 ${dest.name}</h4>
+            <p>${dest.desc}</p>
+        `;
+
+            // Logika Klik Sidebar: Cuma Zoom (FlyTo) dan Buka Popup
+            item.onclick = () => {
+                document.querySelectorAll('.dest-item').forEach(d => d.classList.remove('active'));
+                item.classList.add('active');
+
+                // Cuma flyTo tanpa hapus/tambah marker lagi
+                map.flyTo(dest.coords, 16, { animate: true, duration: 1.5 });
+                mainMarker.openPopup();
+            };
+
+            destList.appendChild(item);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedulu Village | Ancient Civilizations</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR MAGIC (Header) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 5%;
+            transition: 0.4s;
+        }
+
+        /* Efek pas discroll nanti pakai JS */
+        header.scrolled {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fbbf24;
+            /* Warna emas purbakala */
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links .alink {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: #fbbf24;
+        }
+
+        .btn-hubungi {
+            background: #fbbf24;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn-hubungi:hover {
+            background: transparent;
+            color: #fbbf24;
+            border: 2px solid #fbbf24;
+        }
+
+        /* Hamburger (Buat Mobile) */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            /* Nanti kita bikin versi mobile-nya */
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(15, 23, 42, 1)),
+                url('https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            /* Foto Goa Gajah Analogous */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            max-width: 800px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: #fbbf24;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-secondary {
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 13px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        /* --- USP SECTION --- */
+        .usp {
+            padding: 80px 5%;
+            background: #0f1724;
+        }
+
+        .usp .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .usp-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .usp-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .usp-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .usp-item h3 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        /* --- DESTINATIONS --- */
+        .destinations {
+            padding: 100px 5%;
+            background: #0a0f1d;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dest-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dest-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .dest-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .dest-info {
+            padding: 20px;
+        }
+
+        .dest-info h3 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .dest-info p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* HOVER EFFECTS */
+        .dest-card:hover {
+            transform: scale(1.03);
+            border-color: #fbbf24;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dest-card:hover .dest-img img {
+            transform: scale(1.1) rotate(2deg);
+            /* Efek zoom-rotate dikit */
+        }
+
+        .map-section {
+            padding: 80px 5%;
+            background: #0f172a;
+        }
+
+        .map-container {
+            display: flex;
+            height: 500px;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #map {
+            flex: 2;
+            z-index: 1 !important;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .map-info {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow-y: auto;
+        }
+
+        #info-title {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .facility-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* --- PRICING --- */
+        .pricing {
+            padding: 100px 5%;
+            background: #0a0f1d;
+        }
+
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .price-card.featured {
+            border: 2px solid #fbbf24;
+            transform: scale(1.05);
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fbbf24;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #fbbf24;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        .price-card ul {
+            list-style: none;
+            margin-bottom: 30px;
+            color: #94a3b8;
+        }
+
+        .price-card li {
+            margin: 10px 0;
+        }
+
+        .btn-buy {
+            display: block;
+            padding: 15px;
+            background: #fbbf24;
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #070b14;
+            padding: 80px 5% 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-info p {
+            color: #94a3b8;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #475569;
+            font-size: 0.8rem;
+        }
+
+        /* --- RESPONSIVE NAVIGATION --- */
+        @media (max-width: 768px) {
+
+            /* Sembunyiin tombol hubungi kami di mobile biar simpel */
+            .btn-hubungi {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                position: fixed;
+                right: -100%;
+                /* Ngumpet di kanan */
+                top: 0;
+                height: 100vh;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+                z-index: 999;
+                border-left: 1px solid rgba(251, 191, 36, 0.2);
+            }
+
+            /* Menu Muncul */
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            /* Hamburger Animation (Garis Jadi X) */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            /* Section Adjustment */
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .map-container {
+                flex-direction: column;
+                height: 100vh;
+                align-items: center;
+            }
+
+            #map {
+                height: 350px !important;
+                width: 80%;
+            }
+
+            .map-info {
+                height: 250px;
+                width: 80%;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Styling Modal */
+        .modal-overlay {
+            display: none;
+            /* Ngumpet dulu */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            width: 100%;
+            height: 100vh;
+            border-radius: 20px;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .modal-content h2 {
+            padding: 20px 20px 10px;
+            color: #fbbf24;
+        }
+
+        .modal-body {
+            padding: 0 20px 30px;
+            color: #cbd5e1;
+            line-height: 2;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: justify;
+        }
+
+        /* Container grup tombol */
+        .btn-group-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* Bagi 2 kolom */
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        /* Styling tombol masing-masing destinasi */
+        .btn-ticket {
+            display: block;
+            padding: 12px 10px;
+            background: rgba(251, 191, 36, 0.1);
+            /* Warna emas transparan */
+            color: #fbbf24;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-ticket:hover {
+            background: #fbbf24;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Biar di HP jadi satu kolom biar gak sempit */
+        @media (max-width: 480px) {
+            .btn-group-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tambahan dikit biar kartu featured-nya mantap */
+        .price-card.featured {
+            max-width: 500px;
+            /* Biar gak terlalu lebar kalau cuma 1 kartu */
+            margin: 0 auto;
+            border: 2px solid #fbbf24;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
+        }
+
+        /* Styling Google Translate biar gak ngerusak layout emas lo */
+        .goog-te-gadget-simple {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid #fbbf24 !important;
+            padding: 5px !important;
+            border-radius: 5px !important;
+        }
+
+        .goog-te-gadget-simple img {
+            display: none !important;
+            /* Hapus icon google biar clean */
+        }
+
+        .goog-te-menu-value span {
+            color: #fbbf24 !important;
+            /* Biar teksnya tetep emas */
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Sembunyiin bar biru Google di atas (biar gak ganggu header scrolled lo) */
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="main-header">
+        <nav>
+            <a href="#" class="logo">BEDULU<span>.</span></a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a class="alink" href="#destinasi">Destinations</a></li>
+                <li><a class="alink" href="./map_en.html">Map</a></li>
+                <li><a class="alink" href="#tiket">Tickets</a></li>
+                <!-- <li><a class="alink" href="javascript:void(0)" onclick="toggleLanguage()" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN | ID</a></li> -->
+                <li><a class="alink" href="./index.html" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN | ID</a></li>
+                <li><a href="#tiket" class="btn-hubungi" style="color: black; background: #fbbf24;">BUY TICKET</a></li>
+            </ul>
+
+            <!-- <a href="#tiket" class="btn-hubungi">BELI TIKET</a> -->
+
+            <div class="hamburger" id="hamb-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Explore the Traces of Ancient Civilization in Bedulu</h1>
+                <p>Discover archaeological wonders, sacred reliefs, and spiritual serenity in the heart of Bali Gianyar.</p>
+                <div class="hero-btns">
+                    <a href="#destinasi" class="btn-primary">Explore</a>
+                    <a href="#tiket" class="btn-secondary">Buy Ticket</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="usp">
+            <div class="container">
+                <div class="usp-item">
+                    <div class="usp-icon">🗿</div>
+                    <h3>UNESCO Heritage</h3>
+                    <p>An internationally recognized world-class archaeological site dating back to the 9th century.</p>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">🌿</div>
+                    <h3>Spiritual Realm</h3>
+                    <p>A harmonious blend of carved stone cliffs and sacred river flows.</p>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">🎨</div>
+                    <h3>Living Relief</h3>
+                    <p>See firsthand the detailed Yeh Pulu relief carvings that tell of ancient life.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="destinasi" class="destinations">
+            <div class="section-title">
+                <h2>Featured Destinations</h2>
+                <p>Historical sites you must visit in Bedulu</p>
+            </div>
+
+            <div class="dest-grid">
+                <div class="dest-card">
+                    <div class="dest-img">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHVAwepAcJppcO2CUWMuu9XENJ1vFMEaWyxZADKX8kP98a52okTC3yG-CnRuxkMkaa_3Rwx9C9WT_d3SmV87hafD_lD-M0B-gVSNHP0yZZWqApNf6KN0WgeVPHROrgmCgPSitstLNgx6bg=s680-w680-h510-rw"
+                            alt="Goa Gajah">
+                    </div>
+                    <div class="dest-info">
+                        <h3>Goa Gajah</h3>
+                        <p>A 9th century spiritual cave with a giant face carved at the mouth of the cave.</p>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div class="dest-img">
+                        <img src="https://img-asset-01.visitbali.id/LpUfZ2wCWsGHFH0QtSFeCeN-CCpmN7LP5bNrJjrb4lY/fill/1200/630/no/0/aHR0cHM6Ly92aXNpdGJhbGkuaWQvaW1hZ2VzL2RhdGEvMjAyMC9KYW4vMjEvNWUyNmE0YjdhZTE4Y2Q5ZDQuanBlZw.jpg"
+                            alt="Yeh Pulu">
+                    </div>
+                    <div class="dest-info">
+                        <h3>Yeh Pulu</h3>
+                        <p>A 25-meter-long ancient relief depicting Balinese agrarian life.</p>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div class="dest-img">
+                        <img src="https://images.trvl-media.com/place/553248624898381296/e315d877-4e2d-4286-a49f-70a69aa4a9a2.jpg"
+                            alt="Pura Samuan Tiga">
+                    </div>
+                    <div class="dest-info">
+                        <h3>Pura Samuan Tiga</h3>
+                        <p>A historic meeting place for various sects in Bali in the past.</p>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div class="dest-img">
+                        <img src="https://awsimages.detik.net.id/community/media/visual/2024/06/21/candi-tebing-tegallinggah-gianyar-bali-dok-candi-tebing-tegallinggah-2_169.jpeg?w=1200"
+                            alt="Candi Tebing">
+                    </div>
+                    <div class="dest-info">
+                        <h3>Candi Tebing</h3>
+                        <p>A hermitage site carved directly into the beautiful river cliff wall.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <section id="peta" class="map-section">
+            <div class="section-title">
+                <h2>Peta Eksplorasi Bedulu</h2>
+                <p>Klik penanda di peta untuk melihat detail lokasi sekitar</p>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="map-info" id="info-panel">
+                    <h3 id="info-title">Pilih Lokasi</h3>
+                    <p id="info-desc">Klik marker di peta untuk melihat fasilitas terdekat (ATM, RS, Café).</p>
+                    <div id="info-details"></div>
+                </div>
+            </div>
+        </section> -->
+        <section id="peta" class="map-section">
+            <div style="text-align:center; margin-bottom: 40px; display: flex; flex-direction: column; row-gap: 2rem;">
+                <h2 style="color:#fbbf24; font-size: 2rem;">Bedulu Exploration Map</h2>
+                <p>Click Link to View</p>
+                <a href="./map_en.html" class="btn-buy">OPEN INTERACTIVE MAP →</a>
+            </div>
+        </section>
+    <section id="tiket" class="pricing">
+        <div class="section-title">
+            <h2>Entry Ticket Information</h2>
+            <p>Access all archaeological sites at affordable prices</p>
+        </div>
+
+        <div class="pricing-grid featured">
+            <div class="price-card">
+                <h3>Destination Entrance Ticket</h3>
+                <div class="price">IDR 30.000 <span>/ people</span></div>
+                <ul>
+                    <li>Access All Sites</li>
+                    <li>Side Cloth Borrowing</li>
+                    <li>Local Guide (Optional)</li>
+                </ul>
+                <div class="btn-group-grid">
+                    <a href="https://gianyartourismticket.com/en/detail/wisata-goa-gajah" target="_blank"
+                        class="btn-buy">Goa Gajah</a>
+                    <a href="https://gianyartourismticket.com/en/detail/yeh-pulu" target="_blank" class="btn-buy">Yeh
+                        Pulu</a>
+                    <a href="https://gianyartourismticket.com/en/detail/candi-tebing-tegalinggah" target="_blank"
+                        class="btn-buy">Candi Tebing</a>
+                    <a href="https://wa.me/6281999459600?text=Halo%20Admin%2C%20saya%20mau%20tanya%20atau%20pesan%20tiket%20masuk%20Pura%20Pengukur-Ukuran"
+                        target="_blank" class="btn-buy">Pura Samuan Tiga</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h2 class="logo">BEDULU<span>.</span></h2>
+                <p>A historical and cultural tourism village in the heart of Gianyar Regency, Bali. Preserving ancient civilizations for the future.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="#">Home</a>
+                <a href="#destinasi">Destination</a>
+                <a href="#peta">Map</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Address</h4>
+                <p>Goa Gajah Main Street, Bedulu, Blahbatuh, Gianyar, Bali</p>
+                <div class="socials">
+                    <span>IG</span> <span>FB</span> <span>YT</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bedulu Tourism Village. Internship Assignment - Master of Applied Tourism, Bali Tourism Polytechnic
+            </p>
+        </div>
+    </footer>
+
+    <!--Modal-->
+    <div id="story-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modal-img" src="" alt="">
+            <h2 id="modal-title"></h2>
+            <div id="modal-story" class="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Script sederhana buat ganti style header pas di scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Ambil elemen hamburger dan nav-links
+        const hambMenu = document.getElementById('hamb-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        // Logic klik hamburger
+        hambMenu.addEventListener('click', () => {
+            hambMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Logic: Klik link menu langsung tutup nav-nya (Biar gak nutupin layar)
+        const allLinks = document.querySelectorAll('.nav-links a');
+        allLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hambMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Data Cerita Destinasi
+        let currentLang = 'id';
+
+        const uiText = {
+            id: {
+                heroTitle: "Jelajahi Jejak Peradaban Kuno di Bedulu",
+                heroSub: "Temukan keajaiban arkeologi, relief sakral, dan ketenangan spiritual di jantung Bali.",
+                exploreBtn: "Mulai Jelajah",
+                ticketBtn: "Cek Tiket",
+                destTitle: "Destinasi Unggulan",
+                destSub: "Situs bersejarah yang wajib dikunjungi",
+                ticketTitle: "Informasi Tiket Masuk",
+                ticketSub: "Akses seluruh situs arkeologi dengan harga terjangkau"
+            },
+            en: {
+                heroTitle: "Explore Ancient Civilizations in Bedulu",
+                heroSub: "Discover archaeological wonders, sacred reliefs, and spiritual serenity in the heart of Bali.",
+                exploreBtn: "Start Exploring",
+                ticketBtn: "Check Tickets",
+                destTitle: "Featured Destinations",
+                destSub: "Historical sites you must visit",
+                ticketTitle: "Entrance Ticket Info",
+                ticketSub: "Access all archaeological sites at affordable prices"
+            }
+        };
+
+        const stories = {
+            "Goa Gajah": {
+                id: "The Goa Gajah site is an 11th-century archaeological marvel that harmoniously blends Hindu and Buddhist elements. Upon reaching the cave entrance, you are welcomed by a magnificent giant carving—the figure of Bhoma, believed to be the guardian of the sanctuary's purity. Inside the T-shaped cave, lie the statue of Lord Ganesha and several lingga-yoni. The mystical yet calming atmosphere in this river valley makes Goa Gajah a spiritual journey through time.",
+                en: "The Goa Gajah site is an 11th-century archaeological marvel that harmoniously blends Hindu and Buddhist elements. Upon reaching the cave entrance, you are welcomed by a magnificent giant carving—the figure of Bhoma, believed to be the guardian of the sanctuary's purity. Inside the T-shaped cave, lie the statue of Lord Ganesha and several lingga-yoni. The mystical yet calming atmosphere in this river valley makes Goa Gajah a spiritual journey through time."
+            },
+            "Yeh Pulu": {
+                id: "Hidden behind lush green rice fields, Yeh Pulu houses a unique 25-meter-long sandstone relief gallery. Unlike common temple reliefs depicting deities, Yeh Pulu captures the real life of 14th-century Balinese people, including hunting and daily activities. Walking along these reliefs offers an authentic 'trace-back' experience into the lives of ancient Balinese villagers.",
+                en: "Hidden behind lush green rice fields, Yeh Pulu houses a unique 25-meter-long sandstone relief gallery. Unlike common temple reliefs depicting deities, Yeh Pulu captures the real life of 14th-century Balinese people, including hunting and daily activities. Walking along these reliefs offers an authentic 'trace-back' experience into the lives of ancient Balinese villagers."
+            },
+            "Pura Samuan Tiga": {
+                id: "Pura Samuan Tiga is a silent witness to the great diplomacy that united various Hindu sects in Bali into a harmonious order during the reign of King Udayana. The architecture is grand, featuring seven tiered courtyards (mandalas) representing the layers of the universe. Every corner of this temple radiates a powerful historical authority in the heart of Bedulu civilization.",
+                en: "Pura Samuan Tiga is a silent witness to the great diplomacy that united various Hindu sects in Bali into a harmonious order during the reign of King Udayana. The architecture is grand, featuring seven tiered courtyards (mandalas) representing the layers of the universe. Every corner of this temple radiates a powerful historical authority in the heart of Bedulu civilization."
+            },
+            "Candi Tebing": {
+                id: "Candi Tebing (Tegallinggah) proves the ancestral genius of carving steep cliffs into sacred sites. Located on the edge of the sacred Pakerisan River, this site consists of meditation niches carved directly into the rock walls. With an 'Indiana Jones' vibe, it’s perfect for those seeking adventure and tranquility far from the city buzz.",
+                en: "Candi Tebing (Tegallinggah) proves the ancestral genius of carving steep cliffs into sacred sites. Located on the edge of the sacred Pakerisan River, this site consists of meditation niches carved directly into the rock walls. With an 'Indiana Jones' vibe, it’s perfect for those seeking adventure and tranquility far from the city buzz."
+            }
+        };
+        // Ambil elemen modal
+        const modal = document.getElementById('story-modal');
+        const closeBtn = document.querySelector('.close-modal');
+
+        // Pasang event listener ke semua kartu destinasi
+        document.querySelectorAll('.dest-card').forEach(card => {
+            card.style.cursor = "pointer"; // Biar user tau bisa diklik
+
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').innerText;
+                const imgPath = card.querySelector('img').src;
+
+                // Isi konten modal
+                document.getElementById('modal-title').innerText = title;
+                document.getElementById('modal-img').src = imgPath;
+                document.getElementById('modal-story').innerText = stories[title] || "Cerita belum tersedia.";
+
+                // Tampilkan modal
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Biar gak bisa scroll background
+            });
+        });
+
+        // Tutup modal pas klik X
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        // Tutup modal pas klik area luar kotak
+        window.onclick = (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            const langBtn = document.getElementById('lang-btn');
+            langBtn.innerText = currentLang === 'id' ? 'EN | ID' : 'ID | EN';
+
+            // Update UI Elements
+            document.querySelector('.hero h1').innerText = uiText[currentLang].heroTitle;
+            document.querySelector('.hero p').innerText = uiText[currentLang].heroSub;
+            document.querySelector('.btn-primary').innerText = uiText[currentLang].exploreBtn;
+            document.querySelector('.btn-secondary').innerText = uiText[currentLang].ticketBtn;
+            document.querySelector('#destinasi .section-title h2').innerText = uiText[currentLang].destTitle;
+            document.querySelector('#destinasi .section-title p').innerText = uiText[currentLang].destSub;
+            document.querySelector('#tiket .section-title h2').innerText = uiText[currentLang].ticketTitle;
+            document.querySelector('#tiket .section-title p').innerText = uiText[currentLang].ticketSub;
+        }
+
+        // Pasang event listener di kartu destinasi biar buka modal dengan bahasa yang benar
+        document.querySelectorAll('.dest-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').innerText;
+                const img = card.querySelector('img').src;
+
+                document.getElementById('modal-title').innerText = title;
+                document.getElementById('modal-img').src = img;
+                // Ambil cerita sesuai bahasa yang aktif
+                document.getElementById('modal-story').innerText = stories[title][currentLang];
+
+                document.getElementById('story-modal').style.display = 'flex';
+            });
+        });
+    </script>
+</body>
+
+</html>
