@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bedulu Village | Ancient Civilizations</title>
+    <title>Bedulu Tourism Village | Ancient Civilization</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -548,6 +548,10 @@
             .hero-content h1 {
                 font-size: 2.2rem;
             }
+
+            .wraper-link #dest-link {
+                width: 50%;
+            }
         }
 
         /* Styling Modal */
@@ -595,8 +599,8 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 30px;
-            color: #fff;
+            font-size: 40px;
+            color: #fbbf24;
             cursor: pointer;
             z-index: 10;
         }
@@ -697,6 +701,23 @@
         body {
             top: 0px !important;
         }
+
+        #dest-link {
+            margin-top: 1rem;
+            text-align: center;
+            color: #000;
+            width: 20%;
+        }
+
+        .wraper-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #dest-link:hover {
+            background-color: #af8519;
+        }
     </style>
 </head>
 
@@ -711,8 +732,9 @@
                 <li><a class="alink" href="./map_en.html">Map</a></li>
                 <li><a class="alink" href="#tiket">Tickets</a></li>
                 <!-- <li><a class="alink" href="javascript:void(0)" onclick="toggleLanguage()" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN | ID</a></li> -->
-                <li><a class="alink" href="./index.html" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN | ID</a></li>
-                <li><a href="#tiket" class="btn-hubungi" style="color: black; background: #fbbf24;">BUY TICKET</a></li>
+                <li><a class="alink" href="./index.html" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN |
+                        ID</a></li>
+                <li><a href="#tiket" class="btn-hubungi" style="color: black; background: #fbbf24;">BUY TICKETS</a></li>
             </ul>
 
             <!-- <a href="#tiket" class="btn-hubungi">BELI TIKET</a> -->
@@ -729,10 +751,11 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Explore the Traces of Ancient Civilization in Bedulu</h1>
-                <p>Discover archaeological wonders, sacred reliefs, and spiritual serenity in the heart of Bali Gianyar.</p>
+                <p>Discover archaeological wonders, sacred reliefs, and spiritual serenity in the heart of Bali Gianyar.
+                </p>
                 <div class="hero-btns">
-                    <a href="#destinasi" class="btn-primary">Explore</a>
-                    <a href="#tiket" class="btn-secondary">Buy Ticket</a>
+                    <a href="#destinasi" class="btn-primary">Start Exploring</a>
+                    <a href="#tiket" class="btn-secondary">Buy Ticketst</a>
                 </div>
             </div>
         </section>
@@ -742,22 +765,22 @@
                 <div class="usp-item">
                     <div class="usp-icon">🗿</div>
                     <h3>UNESCO Heritage</h3>
-                    <p>An internationally recognized world-class archaeological site dating back to the 9th century.</p>
+                    <p>A world-class archaeological site internationally recognized since the 9th century.</p>
                 </div>
                 <div class="usp-item">
                     <div class="usp-icon">🌿</div>
                     <h3>Spiritual Realm</h3>
-                    <p>A harmonious blend of carved stone cliffs and sacred river flows.</p>
+                    <p>A harmonious blend of carved rock cliffs and sacred river flows.</p>
                 </div>
                 <div class="usp-item">
                     <div class="usp-icon">🎨</div>
                     <h3>Living Relief</h3>
-                    <p>See firsthand the detailed Yeh Pulu relief carvings that tell of ancient life.</p>
+                    <p>See firsthand the detailed carvings of Yeh Pulu reliefs that tell the story of life ancient.</p>
                 </div>
             </div>
         </section>
 
-        <section id="destinasi" class="destinations">
+        <section id="destinasi" class="destinasi">
             <div class="section-title">
                 <h2>Featured Destinations</h2>
                 <p>Historical sites you must visit in Bedulu</p>
@@ -771,7 +794,7 @@
                     </div>
                     <div class="dest-info">
                         <h3>Goa Gajah</h3>
-                        <p>A 9th century spiritual cave with a giant face carved at the mouth of the cave.</p>
+                        <p>A 9th-century spiritual cave with a giant face carved at the mouth.</p>
                     </div>
                 </div>
 
@@ -792,8 +815,8 @@
                             alt="Pura Samuan Tiga">
                     </div>
                     <div class="dest-info">
-                        <h3>Pura Samuan Tiga</h3>
-                        <p>A historic meeting place for various sects in Bali in the past.</p>
+                        <h3>Samuan Tiga Temple</h3>
+                        <p>A historic meeting place for various sects in ancient Bali.</p>
                     </div>
                 </div>
 
@@ -803,8 +826,8 @@
                             alt="Candi Tebing">
                     </div>
                     <div class="dest-info">
-                        <h3>Candi Tebing</h3>
-                        <p>A hermitage site carved directly into the beautiful river cliff wall.</p>
+                        <h3>Tebing Temple</h3>
+                        <p>A hermitage site carved directly into the beautiful river cliff.</p>
                     </div>
                 </div>
             </div>
@@ -831,58 +854,61 @@
                 <a href="./map_en.html" class="btn-buy">OPEN INTERACTIVE MAP →</a>
             </div>
         </section>
-    <section id="tiket" class="pricing">
-        <div class="section-title">
-            <h2>Entry Ticket Information</h2>
-            <p>Access all archaeological sites at affordable prices</p>
-        </div>
+        <section id="tiket" class="pricing">
+            <div class="section-title">
+                <h2>Entrance Ticket Information</h2>
+                <p>Access to all archaeological sites at affordable prices</p>
+            </div>
 
-        <div class="pricing-grid featured">
-            <div class="price-card">
-                <h3>Destination Entrance Ticket</h3>
-                <div class="price">IDR 30.000 <span>/ people</span></div>
-                <ul>
-                    <li>Access All Sites</li>
-                    <li>Side Cloth Borrowing</li>
-                    <li>Local Guide (Optional)</li>
-                </ul>
-                <div class="btn-group-grid">
-                    <a href="https://gianyartourismticket.com/en/detail/wisata-goa-gajah" target="_blank"
-                        class="btn-buy">Goa Gajah</a>
-                    <a href="https://gianyartourismticket.com/en/detail/yeh-pulu" target="_blank" class="btn-buy">Yeh
-                        Pulu</a>
-                    <a href="https://gianyartourismticket.com/en/detail/candi-tebing-tegalinggah" target="_blank"
-                        class="btn-buy">Candi Tebing</a>
-                    <a href="https://wa.me/6281999459600?text=Halo%20Admin%2C%20saya%20mau%20tanya%20atau%20pesan%20tiket%20masuk%20Pura%20Pengukur-Ukuran"
-                        target="_blank" class="btn-buy">Pura Samuan Tiga</a>
+            <div class="pricing-grid featured">
+                <div class="price-card">
+                    <h3>Entrance Ticket to Destinations</h3>
+                    <div class="price">IDR 30,000 <span>/person</span></div>
+                    <ul>
+                        <li>Access to All Sites</li>
+                        <li>Side Cloth Rental</li>
+                        <li>Local Guide (Optional)</li>
+                    </ul>
+                    <div class="btn-group-grid">
+                        <a href="https://gianyartourismticket.com/en/detail/wisata-goa-gajah" target="_blank"
+                            class="btn-buy">Goa Gajah</a>
+                        <a href="https://gianyartourismticket.com/en/detail/yeh-pulu" target="_blank"
+                            class="btn-buy">Yeh
+                            Pulu</a>
+                        <a href="https://gianyartourismticket.com/en/detail/candi-tebing-tegalinggah" target="_blank"
+                            class="btn-buy">Candi Tebing</a>
+                        <a href="https://wa.me/6281999459600?text=Halo%20Admin%2C%20saya%20mau%20tanya%20atau%20pesan%20tiket%20masuk%20Pura%20Pengukur-Ukuran"
+                            target="_blank" class="btn-buy">Pura Samuan Tiga</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-info">
                 <h2 class="logo">BEDULU<span>.</span></h2>
-                <p>A historical and cultural tourism village in the heart of Gianyar Regency, Bali. Preserving ancient civilizations for the future.</p>
+                <p>A historical and cultural tourism village in the heart of Gianyar Regency, Bali. Preserving ancient
+                    civilizations for the future.</p>
             </div>
             <div class="footer-links">
                 <h4>Navigation</h4>
                 <a href="#">Home</a>
                 <a href="#destinasi">Destination</a>
-                <a href="#peta">Map</a>
+                <a href="#map">Location Map</a>
             </div>
             <div class="footer-contact">
                 <h4>Address</h4>
-                <p>Goa Gajah Main Street, Bedulu, Blahbatuh, Gianyar, Bali</p>
+                <p>Jl. Raya Goa Gajah, Bedulu, Blahbatuh, Gianyar, Bali</p>
                 <div class="socials">
                     <span>IG</span> <span>FB</span> <span>YT</span>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Bedulu Tourism Village. Internship Assignment - Master of Applied Tourism, Bali Tourism Polytechnic
+            <p>&copy; 2026 Bedulu Tourism Village. Internship Assignment - Master of Applied Tourism, Bali Tourism
+                Polytechnic
             </p>
         </div>
     </footer>
@@ -894,6 +920,9 @@
             <img id="modal-img" src="" alt="">
             <h2 id="modal-title"></h2>
             <div id="modal-story" class="modal-body"></div>
+            <div class="wraper-link">
+                <a href="#" id="dest-link" class="btn-buy"></a>
+            </div>
         </div>
     </div>
 
@@ -953,23 +982,22 @@
                 ticketSub: "Access all archaeological sites at affordable prices"
             }
         };
-
         const stories = {
             "Goa Gajah": {
-                id: "The Goa Gajah site is an 11th-century archaeological marvel that harmoniously blends Hindu and Buddhist elements. Upon reaching the cave entrance, you are welcomed by a magnificent giant carving—the figure of Bhoma, believed to be the guardian of the sanctuary's purity. Inside the T-shaped cave, lie the statue of Lord Ganesha and several lingga-yoni. The mystical yet calming atmosphere in this river valley makes Goa Gajah a spiritual journey through time.",
-                en: "The Goa Gajah site is an 11th-century archaeological marvel that harmoniously blends Hindu and Buddhist elements. Upon reaching the cave entrance, you are welcomed by a magnificent giant carving—the figure of Bhoma, believed to be the guardian of the sanctuary's purity. Inside the T-shaped cave, lie the statue of Lord Ganesha and several lingga-yoni. The mystical yet calming atmosphere in this river valley makes Goa Gajah a spiritual journey through time."
+                id: "The Goa Gajah site is an 11th-century archaeological marvel that harmoniously blends Hindu and Buddhist elements. Upon arriving at the cave's entrance, you'll be greeted by a stunning giant sculpture—a figure of Bhoma, believed to be the guardian of the sanctuary. Inside the T-shaped cave, there's a statue of Lord Ganesha and several linga-yoni statues. The mystical yet serene atmosphere of this river valley makes Goa Gajah a spiritual journey through time.",
+                url: "./destinations/goa_gajah.html",
             },
             "Yeh Pulu": {
-                id: "Hidden behind lush green rice fields, Yeh Pulu houses a unique 25-meter-long sandstone relief gallery. Unlike common temple reliefs depicting deities, Yeh Pulu captures the real life of 14th-century Balinese people, including hunting and daily activities. Walking along these reliefs offers an authentic 'trace-back' experience into the lives of ancient Balinese villagers.",
-                en: "Hidden behind lush green rice fields, Yeh Pulu houses a unique 25-meter-long sandstone relief gallery. Unlike common temple reliefs depicting deities, Yeh Pulu captures the real life of 14th-century Balinese people, including hunting and daily activities. Walking along these reliefs offers an authentic 'trace-back' experience into the lives of ancient Balinese villagers."
+                id: "Hidden within a stretch of verdant rice paddies, Yeh Pulu houses a unique 25-meter-long gallery of sandstone reliefs. Unlike typical temple reliefs, which depict deities, Yeh Pulu depicts the real lives of 14th-century Balinese people, such as hunting and daily activities. Walking through these reliefs offers a truly immersive experience of ancient Balinese life.",
+                url: "./destinations/yeh_pulu.html",
             },
             "Pura Samuan Tiga": {
-                id: "Pura Samuan Tiga is a silent witness to the great diplomacy that united various Hindu sects in Bali into a harmonious order during the reign of King Udayana. The architecture is grand, featuring seven tiered courtyards (mandalas) representing the layers of the universe. Every corner of this temple radiates a powerful historical authority in the heart of Bedulu civilization.",
-                en: "Pura Samuan Tiga is a silent witness to the great diplomacy that united various Hindu sects in Bali into a harmonious order during the reign of King Udayana. The architecture is grand, featuring seven tiered courtyards (mandalas) representing the layers of the universe. Every corner of this temple radiates a powerful historical authority in the heart of Bedulu civilization."
+                id: "Pura Samuan Tiga is a silent witness to the great diplomacy that united Bali's various Hindu sects into a harmonious order during the reign of King Udayana. Its architecture is magnificent, with seven tiered courtyards (mandalas) symbolizing the levels of the universe. Every corner of this temple exudes a powerful historical authority, present in the heart of Bedulu civilization.",
+                url: "./destinations/pura_samuan_tiga.html",
             },
             "Candi Tebing": {
-                id: "Candi Tebing (Tegallinggah) proves the ancestral genius of carving steep cliffs into sacred sites. Located on the edge of the sacred Pakerisan River, this site consists of meditation niches carved directly into the rock walls. With an 'Indiana Jones' vibe, it’s perfect for those seeking adventure and tranquility far from the city buzz.",
-                en: "Candi Tebing (Tegallinggah) proves the ancestral genius of carving steep cliffs into sacred sites. Located on the edge of the sacred Pakerisan River, this site consists of meditation niches carved directly into the rock walls. With an 'Indiana Jones' vibe, it’s perfect for those seeking adventure and tranquility far from the city buzz."
+                id: "Cliff Temple (Tegallinggah) is a testament to the ingenuity of our ancestors in carving a steep cliff into a sacred place. Situated on the edge of the Pakerisan River ravine, the site consists of hermitages carved directly into the rock wall. It has a very Indiana Jones-like vibe, perfect for those seeking adventure and tranquility away from the hustle and bustle of the city.",
+                url: "./destinations/candi_tebing.html",
             }
         };
         // Ambil elemen modal
@@ -981,17 +1009,31 @@
             card.style.cursor = "pointer"; // Biar user tau bisa diklik
 
             card.addEventListener('click', () => {
-                const title = card.querySelector('h3').innerText;
+                const title = card.querySelector('h3').innerText.trim(); // Pake trim biar gak ada spasi liar
                 const imgPath = card.querySelector('img').src;
 
-                // Isi konten modal
-                document.getElementById('modal-title').innerText = title;
-                document.getElementById('modal-img').src = imgPath;
-                document.getElementById('modal-story').innerText = stories[title] || "Cerita belum tersedia.";
+                // Ambil data destinasi berdasarkan title
+                const destinationData = stories[title];
 
-                // Tampilkan modal
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Biar gak bisa scroll background
+                if (destinationData) {
+                    // Isi konten modal
+                    document.getElementById('modal-title').innerText = title;
+                    document.getElementById('modal-img').src = imgPath;
+
+                    // Perbaikan 1: Ambil .id-nya saja
+                    document.getElementById('modal-story').innerText = destinationData.id;
+
+                    // Perbaikan 2: Ambil .url dari objek destinationData
+                    const linkElem = document.getElementById('dest-link');
+                    linkElem.setAttribute('href', destinationData.url);
+                    linkElem.innerText = "Click for More";
+
+                    // Tampilkan modal
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    console.error("Data untuk " + title + " nggak ketemu di objek stories, Bro.");
+                }
             });
         });
 
@@ -1009,36 +1051,36 @@
             }
         };
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'id' ? 'en' : 'id';
-            const langBtn = document.getElementById('lang-btn');
-            langBtn.innerText = currentLang === 'id' ? 'EN | ID' : 'ID | EN';
+        // function toggleLanguage() {
+        //     currentLang = currentLang === 'id' ? 'en' : 'id';
+        //     const langBtn = document.getElementById('lang-btn');
+        //     langBtn.innerText = currentLang === 'id' ? 'EN | ID' : 'ID | EN';
 
-            // Update UI Elements
-            document.querySelector('.hero h1').innerText = uiText[currentLang].heroTitle;
-            document.querySelector('.hero p').innerText = uiText[currentLang].heroSub;
-            document.querySelector('.btn-primary').innerText = uiText[currentLang].exploreBtn;
-            document.querySelector('.btn-secondary').innerText = uiText[currentLang].ticketBtn;
-            document.querySelector('#destinasi .section-title h2').innerText = uiText[currentLang].destTitle;
-            document.querySelector('#destinasi .section-title p').innerText = uiText[currentLang].destSub;
-            document.querySelector('#tiket .section-title h2').innerText = uiText[currentLang].ticketTitle;
-            document.querySelector('#tiket .section-title p').innerText = uiText[currentLang].ticketSub;
-        }
+        //     // Update UI Elements
+        //     document.querySelector('.hero h1').innerText = uiText[currentLang].heroTitle;
+        //     document.querySelector('.hero p').innerText = uiText[currentLang].heroSub;
+        //     document.querySelector('.btn-primary').innerText = uiText[currentLang].exploreBtn;
+        //     document.querySelector('.btn-secondary').innerText = uiText[currentLang].ticketBtn;
+        //     document.querySelector('#destinasi .section-title h2').innerText = uiText[currentLang].destTitle;
+        //     document.querySelector('#destinasi .section-title p').innerText = uiText[currentLang].destSub;
+        //     document.querySelector('#tiket .section-title h2').innerText = uiText[currentLang].ticketTitle;
+        //     document.querySelector('#tiket .section-title p').innerText = uiText[currentLang].ticketSub;
+        // }
 
-        // Pasang event listener di kartu destinasi biar buka modal dengan bahasa yang benar
-        document.querySelectorAll('.dest-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('h3').innerText;
-                const img = card.querySelector('img').src;
+        // // Pasang event listener di kartu destinasi biar buka modal dengan bahasa yang benar
+        // document.querySelectorAll('.dest-card').forEach(card => {
+        //     card.addEventListener('click', () => {
+        //         const title = card.querySelector('h3').innerText;
+        //         const img = card.querySelector('img').src;
 
-                document.getElementById('modal-title').innerText = title;
-                document.getElementById('modal-img').src = img;
-                // Ambil cerita sesuai bahasa yang aktif
-                document.getElementById('modal-story').innerText = stories[title][currentLang];
+        //         document.getElementById('modal-title').innerText = title;
+        //         document.getElementById('modal-img').src = img;
+        //         // Ambil cerita sesuai bahasa yang aktif
+        //         document.getElementById('modal-story').innerText = stories[title][currentLang];
 
-                document.getElementById('story-modal').style.display = 'flex';
-            });
-        });
+        //         document.getElementById('story-modal').style.display = 'flex';
+        //     });
+        // });
     </script>
 </body>
 
