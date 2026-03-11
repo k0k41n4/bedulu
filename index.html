@@ -548,6 +548,10 @@
             .hero-content h1 {
                 font-size: 2.2rem;
             }
+
+            .wraper-link #dest-link{
+                width: 50%;
+            }
         }
 
         /* Styling Modal */
@@ -595,8 +599,8 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 30px;
-            color: #fff;
+            font-size: 40px;
+            color: #fbbf24;
             cursor: pointer;
             z-index: 10;
         }
@@ -697,6 +701,23 @@
         body {
             top: 0px !important;
         }
+
+        #dest-link{
+            margin-top: 1rem;
+            text-align: center;
+            color: #000;
+            width: 20%;
+        }
+
+        .wraper-link{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #dest-link:hover{
+            background-color: #af8519;
+        }
     </style>
 </head>
 
@@ -711,7 +732,8 @@
                 <li><a class="alink" href="./map.html">Peta</a></li>
                 <li><a class="alink" href="#tiket">Tiket</a></li>
                 <!-- <li><a class="alink" href="javascript:void(0)" onclick="toggleLanguage()" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN | ID</a></li> -->
-                <li><a class="alink" href="./en.html" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN | ID</a></li>
+                <li><a class="alink" href="./en.html" id="lang-btn" style="color: #fbbf24; font-weight: bold;">EN |
+                        ID</a></li>
                 <li><a href="#tiket" class="btn-hubungi" style="color: black; background: #fbbf24;">BELI TIKET</a></li>
             </ul>
 
@@ -831,34 +853,35 @@
                 <a href="./map.html" class="btn-buy">BUKA MAP INTERAKTIF →</a>
             </div>
         </section>
-    <section id="tiket" class="pricing">
-        <div class="section-title">
-            <h2>Informasi Tiket Masuk</h2>
-            <p>Akses seluruh situs arkeologi dengan harga terjangkau</p>
-        </div>
+        <section id="tiket" class="pricing">
+            <div class="section-title">
+                <h2>Informasi Tiket Masuk</h2>
+                <p>Akses seluruh situs arkeologi dengan harga terjangkau</p>
+            </div>
 
-        <div class="pricing-grid featured">
-            <div class="price-card">
-                <h3>Tiket Masuk Destinasi</h3>
-                <div class="price">IDR 30.000 <span>/ orang</span></div>
-                <ul>
-                    <li>Akses Semua Situs</li>
-                    <li>Peminjaman Kain Samping</li>
-                    <li>Local Guide (Opsional)</li>
-                </ul>
-                <div class="btn-group-grid">
-                    <a href="https://gianyartourismticket.com/en/detail/wisata-goa-gajah" target="_blank"
-                        class="btn-buy">Goa Gajah</a>
-                    <a href="https://gianyartourismticket.com/en/detail/yeh-pulu" target="_blank" class="btn-buy">Yeh
-                        Pulu</a>
-                    <a href="https://gianyartourismticket.com/en/detail/candi-tebing-tegalinggah" target="_blank"
-                        class="btn-buy">Candi Tebing</a>
-                    <a href="https://wa.me/6281999459600?text=Halo%20Admin%2C%20saya%20mau%20tanya%20atau%20pesan%20tiket%20masuk%20Pura%20Pengukur-Ukuran"
-                        target="_blank" class="btn-buy">Pura Samuan Tiga</a>
+            <div class="pricing-grid featured">
+                <div class="price-card">
+                    <h3>Tiket Masuk Destinasi</h3>
+                    <div class="price">IDR 30.000 <span>/ orang</span></div>
+                    <ul>
+                        <li>Akses Semua Situs</li>
+                        <li>Peminjaman Kain Samping</li>
+                        <li>Local Guide (Opsional)</li>
+                    </ul>
+                    <div class="btn-group-grid">
+                        <a href="https://gianyartourismticket.com/en/detail/wisata-goa-gajah" target="_blank"
+                            class="btn-buy">Goa Gajah</a>
+                        <a href="https://gianyartourismticket.com/en/detail/yeh-pulu" target="_blank"
+                            class="btn-buy">Yeh
+                            Pulu</a>
+                        <a href="https://gianyartourismticket.com/en/detail/candi-tebing-tegalinggah" target="_blank"
+                            class="btn-buy">Candi Tebing</a>
+                        <a href="https://wa.me/6281999459600?text=Halo%20Admin%2C%20saya%20mau%20tanya%20atau%20pesan%20tiket%20masuk%20Pura%20Pengukur-Ukuran"
+                            target="_blank" class="btn-buy">Pura Samuan Tiga</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     </main>
 
     <footer>
@@ -895,6 +918,9 @@
             <img id="modal-img" src="" alt="">
             <h2 id="modal-title"></h2>
             <div id="modal-story" class="modal-body"></div>
+            <div class="wraper-link">
+                <a href="#" id="dest-link" class="btn-buy"></a>
+            </div>
         </div>
     </div>
 
@@ -954,23 +980,22 @@
                 ticketSub: "Access all archaeological sites at affordable prices"
             }
         };
-
         const stories = {
             "Goa Gajah": {
                 id: "Situs Goa Gajah merupakan keajaiban arkeologi dari abad ke-11 yang memadukan unsur Hindu dan Buddha secara harmonis. Begitu kamu sampai di depan mulut gua, kamu bakal disambut oleh pahatan raksasa yang menakjubkan—sosok Bhoma yang dipercaya sebagai penjaga kesucian tempat ini. Di dalam gua yang berbentuk huruf T, terdapat arca Dewa Ganesha dan beberapa lingga-yoni. Suasana mistis namun menenangkan di lembah sungai ini menjadikan Goa Gajah perjalanan spiritual melintasi waktu.",
-                en: "The Goa Gajah site is an 11th-century archaeological marvel that harmoniously blends Hindu and Buddhist elements. Upon reaching the cave entrance, you are welcomed by a magnificent giant carving—the figure of Bhoma, believed to be the guardian of the sanctuary's purity. Inside the T-shaped cave, lie the statue of Lord Ganesha and several lingga-yoni. The mystical yet calming atmosphere in this river valley makes Goa Gajah a spiritual journey through time."
+                url: "./destinations/goa_gajah.html",
             },
             "Yeh Pulu": {
                 id: "Tersembunyi di balik hamparan sawah hijau, Yeh Pulu menyimpan galeri relief batu pasir sepanjang 25 meter yang sangat unik. Berbeda dengan relief candi pada umumnya yang menceritakan dewa-dewi, Yeh Pulu memotret kehidupan nyata masyarakat Bali abad ke-14 seperti berburu dan aktivitas keseharian. Berjalan menyusuri relief ini memberikan kamu pengalaman 'napak tilas' ke kehidupan rakyat Bali kuno yang sesungguhnya.",
-                en: "Hidden behind lush green rice fields, Yeh Pulu houses a unique 25-meter-long sandstone relief gallery. Unlike common temple reliefs depicting deities, Yeh Pulu captures the real life of 14th-century Balinese people, including hunting and daily activities. Walking along these reliefs offers an authentic 'trace-back' experience into the lives of ancient Balinese villagers."
+                url: "./destinations/yeh_pulu.html",
             },
             "Pura Samuan Tiga": {
                 id: "Pura Samuan Tiga adalah saksi bisu diplomasi agung yang menyatukan berbagai sekte Hindu di Bali menjadi satu tatanan harmonis pada masa Raja Udayana. Arsitekturnya sangat megah dengan tujuh halaman (mandala) bertingkat yang melambangkan tingkatan alam semesta. Setiap sudut pura ini memancarkan wibawa sejarah yang sangat kuat di jantung peradaban Bedulu.",
-                en: "Pura Samuan Tiga is a silent witness to the great diplomacy that united various Hindu sects in Bali into a harmonious order during the reign of King Udayana. The architecture is grand, featuring seven tiered courtyards (mandalas) representing the layers of the universe. Every corner of this temple radiates a powerful historical authority in the heart of Bedulu civilization."
+                url: "./destinations/pura_samuan_tiga.html",
             },
             "Candi Tebing": {
                 id: "Candi Tebing (Tegallinggah) adalah bukti kecerdasan leluhur memahat tebing curam menjadi tempat suci. Terletak di tepi jurang Sungai Pakerisan, situs ini terdiri dari ceruk pertapaan yang dipahat langsung pada dinding cadas. Vibes-nya sangat 'Indiana Jones', cocok buat kamu yang suka petualangan dan ketenangan jauh dari hiruk pikuk kota.",
-                en: "Candi Tebing (Tegallinggah) proves the ancestral genius of carving steep cliffs into sacred sites. Located on the edge of the sacred Pakerisan River, this site consists of meditation niches carved directly into the rock walls. With an 'Indiana Jones' vibe, it’s perfect for those seeking adventure and tranquility far from the city buzz."
+                url: "./destinations/candi_tebing.html",
             }
         };
         // Ambil elemen modal
@@ -982,17 +1007,31 @@
             card.style.cursor = "pointer"; // Biar user tau bisa diklik
 
             card.addEventListener('click', () => {
-                const title = card.querySelector('h3').innerText;
+                const title = card.querySelector('h3').innerText.trim(); // Pake trim biar gak ada spasi liar
                 const imgPath = card.querySelector('img').src;
 
-                // Isi konten modal
-                document.getElementById('modal-title').innerText = title;
-                document.getElementById('modal-img').src = imgPath;
-                document.getElementById('modal-story').innerText = stories[title] || "Cerita belum tersedia.";
+                // Ambil data destinasi berdasarkan title
+                const destinationData = stories[title];
 
-                // Tampilkan modal
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Biar gak bisa scroll background
+                if (destinationData) {
+                    // Isi konten modal
+                    document.getElementById('modal-title').innerText = title;
+                    document.getElementById('modal-img').src = imgPath;
+
+                    // Perbaikan 1: Ambil .id-nya saja
+                    document.getElementById('modal-story').innerText = destinationData.id;
+
+                    // Perbaikan 2: Ambil .url dari objek destinationData
+                    const linkElem = document.getElementById('dest-link');
+                    linkElem.setAttribute('href', destinationData.url);
+                    linkElem.innerText = "Click for More";
+
+                    // Tampilkan modal
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    console.error("Data untuk " + title + " nggak ketemu di objek stories, Bro.");
+                }
             });
         });
 
@@ -1010,36 +1049,36 @@
             }
         };
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'id' ? 'en' : 'id';
-            const langBtn = document.getElementById('lang-btn');
-            langBtn.innerText = currentLang === 'id' ? 'EN | ID' : 'ID | EN';
+        // function toggleLanguage() {
+        //     currentLang = currentLang === 'id' ? 'en' : 'id';
+        //     const langBtn = document.getElementById('lang-btn');
+        //     langBtn.innerText = currentLang === 'id' ? 'EN | ID' : 'ID | EN';
 
-            // Update UI Elements
-            document.querySelector('.hero h1').innerText = uiText[currentLang].heroTitle;
-            document.querySelector('.hero p').innerText = uiText[currentLang].heroSub;
-            document.querySelector('.btn-primary').innerText = uiText[currentLang].exploreBtn;
-            document.querySelector('.btn-secondary').innerText = uiText[currentLang].ticketBtn;
-            document.querySelector('#destinasi .section-title h2').innerText = uiText[currentLang].destTitle;
-            document.querySelector('#destinasi .section-title p').innerText = uiText[currentLang].destSub;
-            document.querySelector('#tiket .section-title h2').innerText = uiText[currentLang].ticketTitle;
-            document.querySelector('#tiket .section-title p').innerText = uiText[currentLang].ticketSub;
-        }
+        //     // Update UI Elements
+        //     document.querySelector('.hero h1').innerText = uiText[currentLang].heroTitle;
+        //     document.querySelector('.hero p').innerText = uiText[currentLang].heroSub;
+        //     document.querySelector('.btn-primary').innerText = uiText[currentLang].exploreBtn;
+        //     document.querySelector('.btn-secondary').innerText = uiText[currentLang].ticketBtn;
+        //     document.querySelector('#destinasi .section-title h2').innerText = uiText[currentLang].destTitle;
+        //     document.querySelector('#destinasi .section-title p').innerText = uiText[currentLang].destSub;
+        //     document.querySelector('#tiket .section-title h2').innerText = uiText[currentLang].ticketTitle;
+        //     document.querySelector('#tiket .section-title p').innerText = uiText[currentLang].ticketSub;
+        // }
 
-        // Pasang event listener di kartu destinasi biar buka modal dengan bahasa yang benar
-        document.querySelectorAll('.dest-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('h3').innerText;
-                const img = card.querySelector('img').src;
+        // // Pasang event listener di kartu destinasi biar buka modal dengan bahasa yang benar
+        // document.querySelectorAll('.dest-card').forEach(card => {
+        //     card.addEventListener('click', () => {
+        //         const title = card.querySelector('h3').innerText;
+        //         const img = card.querySelector('img').src;
 
-                document.getElementById('modal-title').innerText = title;
-                document.getElementById('modal-img').src = img;
-                // Ambil cerita sesuai bahasa yang aktif
-                document.getElementById('modal-story').innerText = stories[title][currentLang];
+        //         document.getElementById('modal-title').innerText = title;
+        //         document.getElementById('modal-img').src = img;
+        //         // Ambil cerita sesuai bahasa yang aktif
+        //         document.getElementById('modal-story').innerText = stories[title][currentLang];
 
-                document.getElementById('story-modal').style.display = 'flex';
-            });
-        });
+        //         document.getElementById('story-modal').style.display = 'flex';
+        //     });
+        // });
     </script>
 </body>
 
