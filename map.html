@@ -172,7 +172,7 @@
                 width: 90%;
             }
 
-            .legend{
+            .legend {
                 margin-bottom: 0;
             }
         }
@@ -458,6 +458,7 @@
                 name: "Goa Gajah",
                 coords: [-8.5230, 115.2861],
                 link: "https://maps.app.goo.gl/tAbwxrcKK6iqZ7o87",
+                info: "./destinasi/goa_gajah.html",
                 desc: "Situs spiritual abad ke-9 dengan relief raksasa Bhoma.",
                 facilities: [
                     { name: "Layana Warung", type: "cafe", pos: [-8.522, 115.288] },
@@ -469,6 +470,7 @@
                 name: "Yeh Pulu",
                 coords: [-8.5295, 115.2933],
                 link: "https://maps.app.goo.gl/bF3Ad6M6fW7pKo3o6",
+                info: "./destinasi/yeh_pulu.html",
                 desc: "Relief kuno 25 meter yang menceritakan kehidupan agraris Bali.",
                 facilities: [
                     { name: "Yeh Pulu Café", type: "cafe", pos: [-8.529, 115.294] },
@@ -479,6 +481,7 @@
                 name: "Candi Tebing",
                 coords: [-8.527, 115.305],
                 link: "https://maps.app.goo.gl/kP5Yjsz6Qua5yshj7",
+                info: "./destinasi/candi_tebing.html",
                 desc: "Situs pertapaan kuno yang dipahat langsung di dinding tebing sungai.",
                 facilities: [
                     { name: "Hanzo Coffee Bedulu", type: "cafe", pos: [-8.534, 115.307] },
@@ -489,6 +492,7 @@
                 name: "Pura Samuan Tiga",
                 coords: [-8.5237, 115.295],
                 link: "https://maps.app.goo.gl/aEM4yiLdjkoMpHfj6",
+                info: "./destinasi/pura_samuan_tiga.html",
                 desc: "Tempat bersejarah penyatuan sekte Hindu di Bali.",
                 facilities: [
                     { name: "Dagoja Coffee", type: "cafe", pos: [-8.522, 115.288] },
@@ -506,8 +510,13 @@
                     <b style="font-size:1.1rem">${dest.name}</b><br>
                     <a href="${dest.link}" target="_blank" 
                        style="display:block; background:#fbbf24; color:black; text-align:center; 
-                              text-decoration:none; padding:8px; border-radius:5px; font-weight:bold; font-size:0.8rem">
+                              text-decoration:none; padding:8px; border-radius:5px; font-weight:bold; font-size:0.8rem; margin-bottom: 1rem;">
                        🚗 Buka di Google Maps
+                    </a>
+                    <a href="${dest.info}" target="_blank" 
+                       style="display:block; background:#fbbf24; color:black; text-align:center; 
+                              text-decoration:none; padding:8px; border-radius:5px; font-weight:bold; font-size:0.8rem">
+                       Klik untuk Selengkapnya
                     </a>
                 </div>
             `;
